@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Head from 'next/head';
-import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, ExternalLink, Download } from 'lucide-react';
+import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -17,11 +16,13 @@ interface Project {
 interface Skill {
   name: string;
   level: number;
+  icon: string;
 }
 
 const Home: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [skillsInView, setSkillsInView] = useState<boolean>(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -42,11 +43,21 @@ const Home: React.FC = () => {
           }
         }
       }
+
+      // Check if skills section is in view
+      const skillsSection = document.getElementById('skills');
+      if (skillsSection) {
+        const rect = skillsSection.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (isInView && !skillsInView) {
+          setSkillsInView(true);
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [skillsInView]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -86,306 +97,363 @@ const Home: React.FC = () => {
   ];
 
   const skills: Skill[] = [
-    { name: "JavaScript", level: 90 },
-    { name: "TypeScript", level: 85 },
-    { name: "React", level: 90 },
-    { name: "Next.js", level: 80 },
-    { name: "Node.js", level: 75 },
-    { name: "Python", level: 70 },
-    { name: "MongoDB", level: 75 },
-    { name: "PostgreSQL", level: 70 }
+    { name: "JavaScript", level: 90, icon: "🟨" },
+    { name: "TypeScript", level: 85, icon: "🔷" },
+    { name: "React", level: 95, icon: "⚛️" },
+    { name: "Next.js", level: 80, icon: "▲" },
+    { name: "Node.js", level: 90, icon: "🟢" },
+    { name: "Python", level: 90, icon: "🐍" },
+    { name: "C++", level: 85, icon: "⚙️" },
+    { name: "Java", level: 80, icon: "☕" },
+    { name: "MongoDB", level: 80, icon: "🍃" },
+    { name: "PostgreSQL", level: 90, icon: "🐘" },
+    { name: "Git", level: 85, icon: "🌿" },
+    { name: "Docker", level: 75, icon: "🐳" }
   ];
 
   return (
-    <>
-      <Head>
-        <title>Sahanashre - Full Stack Developer</title>
-        <meta name="description" content="Portfolio of Sahanashre - Full Stack Developer specializing in modern web technologies" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <div className="bg-gray-900 text-white min-h-screen">
-        {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center h-16">
-              <div className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Sahanashre
-              </div>
-              <div className="hidden md:flex space-x-8">
-                {['hero', 'about', 'skills', 'projects', 'contact'].map((section) => (
-                  <button
-                    key={section}
-                    onClick={() => scrollToSection(section)}
-                    className={`capitalize hover:text-blue-400 transition-colors ${
-                      activeSection === section ? 'text-blue-400' : 'text-gray-300'
-                    }`}
-                  >
-                    {section === 'hero' ? 'home' : section}
-                  </button>
-                ))}
-              </div>
+    <div className="bg-gray-900 text-white min-h-screen">
+      {/* Navigation */}
+      <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Sahanashre V
             </div>
-          </div>
-        </nav>
-
-        {/* Hero Section */}
-        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
-          <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-            <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                Sahanashre
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 mb-8">
-                Full Stack Developer & UI/UX Enthusiast
-              </p>
-              <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
-                Passionate about creating exceptional digital experiences with modern web technologies and clean, efficient code.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="hidden md:flex space-x-8">
+              {['hero', 'about', 'skills', 'projects', 'contact'].map((section) => (
                 <button
-                  onClick={() => scrollToSection('projects')}
-                  className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105"
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className={`capitalize hover:text-blue-400 transition-colors ${
+                    activeSection === section ? 'text-blue-400' : 'text-gray-300'
+                  }`}
                 >
-                  View My Work
+                  {section === 'hero' ? 'home' : section}
                 </button>
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="px-8 py-3 border-2 border-blue-400 text-blue-400 rounded-lg font-semibold hover:bg-blue-400 hover:text-white transition-all duration-300"
-                >
-                  Get In Touch
-                </button>
-              </div>
+              ))}
             </div>
           </div>
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-8 h-8 text-gray-400" />
-          </div>
-        </section>
+        </div>
+      </nav>
 
-        {/* About Section */}
-        <section id="about" className="py-20 bg-gray-800">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                About Me
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+      {/* Hero Section */}
+      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
+        
+        {/* Animated background elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        </div>
+
+        <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
+              Sahanashre V
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-300 mb-8">
+              Full Stack Developer & UI/UX Enthusiast
+            </p>
+            <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+              Passionate about creating exceptional digital experiences with modern web technologies and clean, efficient code.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => scrollToSection('projects')}
+                className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
+              >
+                View My Work
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="px-8 py-3 border-2 border-blue-400 text-blue-400 rounded-lg font-semibold hover:bg-blue-400 hover:text-white transition-all duration-300 transform hover:scale-105"
+              >
+                Get In Touch
+              </button>
             </div>
-            
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="w-80 h-80 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full mx-auto mb-8 flex items-center justify-center">
-                  <div className="w-72 h-72 bg-gray-800 rounded-full flex items-center justify-center">
+          </div>
+        </div>
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-8 h-8 text-gray-400" />
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              About Me
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="relative">
+              {/* Photo placeholder with animated border */}
+              <div className="w-80 h-80 mx-auto relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full animate-spin-slow"></div>
+                <div className="absolute inset-2 bg-gray-800 rounded-full overflow-hidden">
+                  {/* Replace this with your actual photo */}
+                  {/* <img 
+                    src="/api/placeholder/320/320" 
+                    alt="Sahanashre V" 
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  /> */}
+                  {/* Fallback if no image */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 flex items-center justify-center">
                     <span className="text-6xl font-bold text-white">S</span>
                   </div>
                 </div>
               </div>
+            </div>
+            
+            <div className="space-y-6">
+              <p className="text-lg text-gray-300 leading-relaxed">
+                I am a passionate full-stack developer with expertise in modern web technologies. 
+                I love turning complex problems into simple, beautiful, and intuitive solutions.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                With a strong foundation in both frontend and backend development, I create 
+                seamless user experiences backed by robust, scalable architectures.
+              </p>
+              <p className="text-lg text-gray-300 leading-relaxed">
+                When I am not coding, you can find me exploring new technologies, contributing to 
+                open-source projects, or sharing knowledge with the developer community.
+              </p>
               
-              <div className="space-y-6">
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  I'm a passionate full-stack developer with expertise in modern web technologies. 
-                  I love turning complex problems into simple, beautiful, and intuitive solutions.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  With a strong foundation in both frontend and backend development, I create 
-                  seamless user experiences backed by robust, scalable architectures.
-                </p>
-                <p className="text-lg text-gray-300 leading-relaxed">
-                  When I'm not coding, you can find me exploring new technologies, contributing to 
-                  open-source projects, or sharing knowledge with the developer community.
-                </p>
-                
-                <div className="flex items-center gap-4 pt-6">
-                  <Mail className="w-5 h-5 text-blue-400" />
-                  <span className="text-gray-300">sahanashre@example.com</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <MapPin className="w-5 h-5 text-blue-400" />
-                  <span className="text-gray-300">Available for remote work</span>
-                </div>
+              <div className="flex items-center gap-4 pt-6">
+                <Mail className="w-5 h-5 text-blue-400" />
+                <span className="text-gray-300">sahanashre@example.com</span>
+              </div>
+              <div className="flex items-center gap-4">
+                <MapPin className="w-5 h-5 text-blue-400" />
+                <span className="text-gray-300">Available for remote work</span>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Skills Section */}
-        <section id="skills" className="py-20 bg-gray-900">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Skills & Technologies
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-8">
-              {skills.map((skill, index) => (
-                <div key={skill.name} className="space-y-2">
-                  <div className="flex justify-between items-center">
+      {/* Skills Section */}
+      <section id="skills" className="py-20 bg-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Skills & Technologies
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {skills.map((skill, index) => (
+              <div 
+                key={skill.name} 
+                className={`space-y-2 transform transition-all duration-700 ${
+                  skillsInView 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-10'
+                }`}
+                style={{ transitionDelay: `${index * 100}ms` }}
+              >
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{skill.icon}</span>
                     <span className="text-lg font-semibold text-gray-300">{skill.name}</span>
-                    <span className="text-blue-400 font-bold">{skill.level}%</span>
                   </div>
-                  <div className="w-full bg-gray-700 rounded-full h-3">
-                    <div 
-                      className="bg-gradient-to-r from-blue-400 to-purple-500 h-3 rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
+                  <span className="text-blue-400 font-bold">{skill.level}%</span>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Projects Section */}
-        <section id="projects" className="py-20 bg-gray-800">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Featured Projects
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map((project) => (
-                <div key={project.id} className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-gray-700">
-                  <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                    <span className="text-white font-bold text-xl">Project Image</span>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                    <p className="text-gray-400 mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.map((tech) => (
-                        <span key={tech} className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex gap-4">
-                      {project.liveUrl && (
-                        <a href={project.liveUrl} className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
-                          <ExternalLink className="w-4 h-4" />
-                          Live Demo
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a href={project.githubUrl} className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors">
-                          <Github className="w-4 h-4" />
-                          Code
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-20 bg-gray-900">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Get In Touch
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h3 className="text-2xl font-bold mb-6 text-white">Let's work together</h3>
-                <p className="text-gray-400 mb-8">
-                  I'm always interested in hearing about new projects and opportunities. 
-                  Whether you have a project in mind or just want to chat about technology, 
-                  feel free to reach out!
-                </p>
-                
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-blue-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">Email</p>
-                      <p className="text-gray-400">sahanashre@example.com</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-blue-400" />
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold">Phone</p>
-                      <p className="text-gray-400">+1 (555) 123-4567</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-4 pt-6">
-                    <a href="#" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-colors">
-                      <Github className="w-6 h-6 text-blue-400" />
-                    </a>
-                    <a href="#" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-colors">
-                      <Linkedin className="w-6 h-6 text-blue-400" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gray-800 rounded-lg p-8">
-                <form className="space-y-6">
-                  <div>
-                    <label className="block text-gray-300 mb-2">Name</label>
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-2">Email</label>
-                    <input 
-                      type="email" 
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white"
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-2">Message</label>
-                    <textarea 
-                      rows={4}
-                      className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white resize-none"
-                      placeholder="Your message..."
-                    ></textarea>
-                  </div>
-                  <button 
-                    type="submit"
-                    className="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-white"
+                <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-blue-400 to-purple-500 h-3 rounded-full transition-all duration-1000 ease-out relative"
+                    style={{ 
+                      width: skillsInView ? `${skill.level}%` : '0%',
+                      transitionDelay: `${index * 100 + 200}ms`
+                    }}
                   >
-                    Send Message
-                  </button>
-                </form>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 bg-gray-800">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Featured Projects
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => (
+              <div 
+                key={project.id} 
+                className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-gray-700 hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/10"
+                style={{ 
+                  animationDelay: `${index * 200}ms`,
+                  animation: 'fadeInUp 0.6s ease-out forwards'
+                }}
+              >
+                <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 animate-pulse"></div>
+                  <span className="text-white font-bold text-xl relative z-10">Project Image</span>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+                  <p className="text-gray-400 mb-4">{project.description}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm hover:bg-blue-500/30 transition-colors">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-4">
+                    {project.liveUrl && (
+                      <a href={project.liveUrl} className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a href={project.githubUrl} className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors">
+                        <Github className="w-4 h-4" />
+                        Code
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-gray-900">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Get In Touch
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="text-2xl font-bold mb-6 text-white">Let's work together</h3>
+              <p className="text-gray-400 mb-8">
+                I am always interested in hearing about new projects and opportunities. 
+                Whether you have a project in mind or just want to chat about technology, 
+                feel free to reach out!
+              </p>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <Mail className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">Email</p>
+                    <p className="text-gray-400">sahanashre.v@gmail.com</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <Phone className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">Phone</p>
+                    <p className="text-gray-400">+91 96263 31196</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 pt-6">
+                  <a href="https://github.com/Sahanashre-V" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
+                    <Github className="w-6 h-6 text-blue-400" />
+                  </a>
+                  <a href="https://www.linkedin.com/in/sahanashre-v" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
+                    <Linkedin className="w-6 h-6 text-blue-400" />
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-400/50 transition-colors">
+              <div className="space-y-6">
+                <div>
+                  <div className="block text-gray-300 mb-2">Name</div>
+                  <div className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white transition-colors text-gray-400">
+                    Your name
+                  </div>
+                </div>
+                <div>
+                  <div className="block text-gray-300 mb-2">Email</div>
+                  <div className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white transition-colors text-gray-400">
+                    your@email.com
+                  </div>
+                </div>
+                <div>
+                  <div className="block text-gray-300 mb-2">Message</div>
+                  <div className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white transition-colors text-gray-400 h-24 flex items-start pt-3">
+                    Your message...
+                  </div>
+                </div>
+                <button 
+                  className="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-white transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
+                >
+                  Send Message
+                </button>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Footer */}
-        <footer className="bg-gray-800 border-t border-gray-700 py-8">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-gray-400">
-              © 2024 Sahanashre. Built with Next.js & TypeScript.
-            </p>
-          </div>
-        </footer>
-      </div>
-    </>
+      {/* Footer */}
+      <footer className="bg-gray-800 border-t border-gray-700 py-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-400">
+            © 2024 Sahanashre. Built with Next.js & TypeScript.
+          </p>
+        </div>
+      </footer>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+        
+        .animate-spin-slow {
+          animation: spin-slow 3s linear infinite;
+        }
+      `}</style>
+    </div>
   );
 };
 
