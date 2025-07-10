@@ -69,27 +69,27 @@ const Home: React.FC = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution with payment integration, user authentication, and admin dashboard.",
-      tech: ["React", "Node.js", "MongoDB", "Stripe"],
+      title: "TechNestle",
+      description: "A dynamic platform where users can both learn and teach web development. Whether you're a novice or a seasoned professional, there's something for everyone.",
+      tech: ["React", "Node.js", "MongoDB", "Express.js"],
       image: "/api/placeholder/400/250",
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "A collaborative project management tool with real-time updates and team collaboration features.",
-      tech: ["Next.js", "TypeScript", "PostgreSQL", "Socket.io"],
+      title: "CodeWhiz",
+      description: "A cross-platform mobile app built with React Native that answers coding-related questions instantly. It uses the Gemini API to deliver intelligent, real-time solutions for queries across various programming languages.",
+      tech: ["React Native", "Gemini API", "JavaScript", "Mobile Development"],
       image: "/api/placeholder/400/250",
       liveUrl: "#",
       githubUrl: "#"
     },
     {
       id: 3,
-      title: "Weather Dashboard",
-      description: "A responsive weather application with location-based forecasts and interactive charts.",
-      tech: ["React", "Chart.js", "OpenWeather API", "Tailwind CSS"],
+      title: "Library Management System",
+      description: "A robust system for efficiently managing books, users, and borrowing records. Built with Docker for seamless deployment and containerization.",
+      tech: ["Node.js", "Express.js", "MySQL", "Docker"],
       image: "/api/placeholder/400/250",
       liveUrl: "#",
       githubUrl: "#"
@@ -349,7 +349,7 @@ const Home: React.FC = () => {
           
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-white">Let's work together</h3>
+              <h3 className="text-2xl font-bold mb-6 text-white">Let us work together</h3>
               <p className="text-gray-400 mb-8">
                 I am always interested in hearing about new projects and opportunities. 
                 Whether you have a project in mind or just want to chat about technology, 
