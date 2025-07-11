@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from 'lucide-react';
+import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, ExternalLink, Send } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -19,10 +19,23 @@ interface Skill {
   icon: string;
 }
 
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const Home: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string>('hero');
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [skillsInView, setSkillsInView] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitStatus, setSubmitStatus] = useState<string>('');
 
   useEffect(() => {
     setIsVisible(true);
@@ -63,6 +76,51 @@ const Home: React.FC = () => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('');
+
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setSubmitStatus('Please fill in all fields.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setSubmitStatus('Please enter a valid email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Simulate form submission (replace with actual API call)
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // For demo purposes, we'll just show a success message
+      // In a real application, you would send this data to your backend
+      console.log('Form submitted:', formData);
+      
+      setSubmitStatus('Message sent successfully! I\'ll get back to you soon.');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('Failed to send message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -391,29 +449,73 @@ const Home: React.FC = () => {
             <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-400/50 transition-colors">
               <div className="space-y-6">
                 <div>
-                  <div className="block text-gray-300 mb-2">Name</div>
-                  <div className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white transition-colors text-gray-400">
-                    Your name
-                  </div>
+                  <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
+                    placeholder="Your name"
+                    required
+                  />
                 </div>
                 <div>
-                  <div className="block text-gray-300 mb-2">Email</div>
-                  <div className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white transition-colors text-gray-400">
-                    your@email.com
-                  </div>
+                  <label htmlFor="email" className="block text-gray-300 mb-2">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors"
+                    placeholder="your@email.com"
+                    required
+                  />
                 </div>
                 <div>
-                  <div className="block text-gray-300 mb-2">Message</div>
-                  <div className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white transition-colors text-gray-400 h-24 flex items-start pt-3">
-                    Your message...
-                  </div>
+                  <label htmlFor="message" className="block text-gray-300 mb-2">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-400 transition-colors resize-vertical"
+                    placeholder="Your message..."
+                    required
+                  />
                 </div>
+                
+                {submitStatus && (
+                  <div className={`p-4 rounded-lg ${
+                    submitStatus.includes('successfully') 
+                      ? 'bg-green-500/20 text-green-400 border border-green-500/50' 
+                      : 'bg-red-500/20 text-red-400 border border-red-500/50'
+                  }`}>
+                    {submitStatus}
+                  </div>
+                )}
+                
                 <button 
-                  className="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-white transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-white transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
-              </div>
+                              </div>
             </div>
           </div>
         </div>
