@@ -131,8 +131,8 @@ const Home: React.FC = () => {
       description: "A dynamic platform where users can both learn and teach web development. Whether you're a novice or a seasoned professional, there's something for everyone.",
       tech: ["React", "Node.js", "MongoDB", "Express.js"],
       image: "/api/placeholder/400/250",
-      liveUrl: "#",
-      githubUrl: "#"
+      liveUrl: "https://technestle.netlify.app/",
+      githubUrl: "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle"
     },
     {
       id: 2,
@@ -141,7 +141,7 @@ const Home: React.FC = () => {
       tech: ["React Native", "Gemini API", "JavaScript", "Mobile Development"],
       image: "/api/placeholder/400/250",
       liveUrl: "#",
-      githubUrl: "#"
+      githubUrl: "https://github.com/Sahanashre-V/CodeWhiz"
     },
     {
       id: 3,
@@ -150,7 +150,7 @@ const Home: React.FC = () => {
       tech: ["Node.js", "Express.js", "MySQL", "Docker"],
       image: "/api/placeholder/400/250",
       liveUrl: "#",
-      githubUrl: "#"
+      githubUrl: "https://github.com/Sahanashre-V/Library-Management"
     }
   ];
 
