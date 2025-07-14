@@ -149,7 +149,7 @@ const Home: React.FC = () => {
       description: "A robust system for efficiently managing books, users, and borrowing records. Built with Docker for seamless deployment and containerization.",
       tech: ["Node.js", "Express.js", "MySQL", "Docker"],
       image: "/api/placeholder/400/250",
-      liveUrl: "#",
+      liveUrl: "https://managelibrary.up.railway.app/",
       githubUrl: "https://github.com/Sahanashre-V/Library-Management"
     }
   ];
