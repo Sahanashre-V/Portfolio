@@ -155,18 +155,41 @@ const Home: React.FC = () => {
   ];
 
   const skills: Skill[] = [
-    { name: "JavaScript", level: 90, icon: "🟨" },
-    { name: "TypeScript", level: 85, icon: "🔷" },
-    { name: "React", level: 95, icon: "⚛️" },
-    { name: "Next.js", level: 80, icon: "▲" },
-    { name: "Node.js", level: 90, icon: "🟢" },
-    { name: "Python", level: 90, icon: "🐍" },
-    { name: "C++", level: 85, icon: "⚙️" },
-    { name: "Java", level: 80, icon: "☕" },
+    // Frontend Technologies - Advanced
+    { name: "HTML", level: 95, icon: "🌐" },
+    { name: "CSS", level: 90, icon: "🎨" },
+    { name: "React.js", level: 95, icon: "⚛️" },
+    { name: "React Native", level: 85, icon: "📱" },
+    { name: "Tailwind CSS", level: 90, icon: "🎯" },
+    { name: "Figma", level: 85, icon: "🎨" },
+    
+    // Backend Technologies - Intermediate
+    { name: "Express.js", level: 75, icon: "🚀" },
+    { name: "Node.js", level: 80, icon: "🟢" },
+    { name: "Mongoose", level: 70, icon: "🍃" },
+    { name: "JWT", level: 75, icon: "🔐" },
+    { name: "Prisma ORM", level: 70, icon: "🔷" },
+    
+    // Programming Languages - Intermediate
+    { name: "Python", level: 75, icon: "🐍" },
+    { name: "C++", level: 80, icon: "⚙️" },
+    { name: "JavaScript", level: 85, icon: "🟨" },
+    
+    // Databases - Intermediate
     { name: "MongoDB", level: 80, icon: "🍃" },
-    { name: "PostgreSQL", level: 90, icon: "🐘" },
-    { name: "Git", level: 85, icon: "🌿" },
-    { name: "Docker", level: 75, icon: "🐳" }
+    { name: "MySQL", level: 75, icon: "🐬" },
+    { name: "PostgreSQL", level: 70, icon: "🐘" },
+    
+    // DevOps - Intermediate
+    { name: "Docker", level: 75, icon: "🐳" },
+    
+    // Other Tools - Intermediate
+    { name: "Netlify", level: 80, icon: "🌐" },
+    { name: "Render", level: 75, icon: "🚀" },
+    { name: "Postman", level: 85, icon: "📬" },
+    { name: "Bruno", level: 70, icon: "🐻" },
+    { name: "Cloudinary", level: 75, icon: "☁️" },
+    { name: "Firebase", level: 80, icon: "🔥" }
   ];
 
   return (
@@ -305,7 +328,7 @@ const Home: React.FC = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {skills.map((skill, index) => (
               <div 
                 key={skill.name} 
@@ -515,7 +538,7 @@ const Home: React.FC = () => {
                     </>
                   )}
                 </button>
-                              </div>
+              </div>
             </div>
           </div>
         </div>
