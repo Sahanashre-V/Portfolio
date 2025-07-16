@@ -130,7 +130,7 @@ const Home: React.FC = () => {
       title: "TechNestle",
       description: "A dynamic platform where users can both learn and teach web development. Whether you're a novice or a seasoned professional, there's something for everyone.",
       tech: ["React", "Node.js", "MongoDB", "Express.js"],
-      image: "/api/placeholder/400/250",
+      image: "",
       liveUrl: "https://technestle.netlify.app/",
       githubUrl: "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle"
     },
