@@ -164,24 +164,24 @@ const Home: React.FC = () => {
     { name: "Figma", level: 85, icon: "🎨" },
     
     // Backend Technologies - Intermediate
-    { name: "Express.js", level: 75, icon: "🚀" },
-    { name: "Node.js", level: 80, icon: "🟢" },
-    { name: "Mongoose", level: 70, icon: "🍃" },
-    { name: "JWT", level: 75, icon: "🔐" },
-    { name: "Prisma ORM", level: 70, icon: "🔷" },
+    { name: "Express.js", level: 95, icon: "🚀" },
+    { name: "Node.js", level: 90, icon: "🟢" },
+    { name: "Mongoose", level: 90, icon: "🍃" },
+    { name: "JWT", level: 85, icon: "🔐" },
+    { name: "Prisma ORM", level: 80, icon: "🔷" },
     
     // Programming Languages - Intermediate
-    { name: "Python", level: 75, icon: "🐍" },
+    { name: "Python", level: 90, icon: "🐍" },
     { name: "C++", level: 80, icon: "⚙️" },
-    { name: "JavaScript", level: 85, icon: "🟨" },
+    { name: "JavaScript", level: 80, icon: "🟨" },
     
     // Databases - Intermediate
-    { name: "MongoDB", level: 80, icon: "🍃" },
-    { name: "MySQL", level: 75, icon: "🐬" },
-    { name: "PostgreSQL", level: 70, icon: "🐘" },
+    { name: "MongoDB", level: 85, icon: "🍃" },
+    { name: "MySQL", level: 80, icon: "🐬" },
+    { name: "PostgreSQL", level: 80, icon: "🐘" },
     
     // DevOps - Intermediate
-    { name: "Docker", level: 75, icon: "🐳" },
+    { name: "Docker", level: 80, icon: "🐳" },
     
     // Other Tools - Intermediate
     { name: "Netlify", level: 80, icon: "🌐" },
