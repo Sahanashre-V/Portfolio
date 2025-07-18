@@ -161,7 +161,7 @@ const Home: React.FC = () => {
     { name: "React.js", level: 95, icon: "⚛️" },
     { name: "React Native", level: 85, icon: "📱" },
     { name: "Tailwind CSS", level: 90, icon: "🎯" },
-    { name: "Figma", level: 85, icon: "🎨" },
+    { name: "Figma", level: 90, icon: "🎨" },
     
     // Backend Technologies - Intermediate
     { name: "Express.js", level: 95, icon: "🚀" },
@@ -185,11 +185,11 @@ const Home: React.FC = () => {
     
     // Other Tools - Intermediate
     { name: "Netlify", level: 80, icon: "🌐" },
-    { name: "Render", level: 75, icon: "🚀" },
-    { name: "Postman", level: 85, icon: "📬" },
-    { name: "Bruno", level: 70, icon: "🐻" },
-    { name: "Cloudinary", level: 75, icon: "☁️" },
-    { name: "Firebase", level: 80, icon: "🔥" }
+    { name: "Render", level: 85, icon: "🚀" },
+    { name: "Postman", level: 95, icon: "📬" },
+    { name: "Bruno", level: 95, icon: "🐻" },
+    { name: "Cloudinary", level: 85, icon: "☁️" },
+    { name: "Firebase", level: 85, icon: "🔥" }
   ];
 
   return (
