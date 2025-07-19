@@ -548,7 +548,7 @@ const Home: React.FC = () => {
       <footer className="bg-gray-800 border-t border-gray-700 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400">
-            © 2024 Sahanashre. Built with Next.js & TypeScript.
+            © 2025 Sahanashre. Built with Next.js & TypeScript.
           </p>
         </div>
       </footer>
