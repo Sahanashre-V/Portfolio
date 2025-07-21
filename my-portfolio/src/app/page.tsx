@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, ExternalLink, Send } from 'lucide-react';
+import Image from 'next/image';
+import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, Send } from 'lucide-react';
 
 interface Project {
   id: number;
@@ -118,7 +119,7 @@ const Home: React.FC = () => {
       setSubmitStatus('Message sent successfully! I\'ll get back to you soon.');
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      setSubmitStatus('Failed to send message. Please try again.');
+      setSubmitStatus(`Failed to send message. Please try again, ${error}.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -130,8 +131,7 @@ const Home: React.FC = () => {
       title: "TechNestle",
       description: "A dynamic platform where users can both learn and teach web development. Whether you're a novice or a seasoned professional, there's something for everyone.",
       tech: ["React", "Node.js", "MongoDB", "Express.js"],
-      image: "",
-      liveUrl: "https://technestle.netlify.app/",
+      image: "/technestle.jpeg",
       githubUrl: "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle"
     },
     {
@@ -139,19 +139,17 @@ const Home: React.FC = () => {
       title: "CodeWhiz",
       description: "A cross-platform mobile app built with React Native that answers coding-related questions instantly. It uses the Gemini API to deliver intelligent, real-time solutions for queries across various programming languages.",
       tech: ["React Native", "Gemini API", "JavaScript", "Mobile Development"],
-      image: "/api/placeholder/400/250",
-      liveUrl: "#",
+      image: "/codewhiz.jpg",
       githubUrl: "https://github.com/Sahanashre-V/CodeWhiz"
     },
     {
-      id: 3,
-      title: "Library Management System",
-      description: "A robust system for efficiently managing books, users, and borrowing records. Built with Docker for seamless deployment and containerization.",
-      tech: ["Node.js", "Express.js", "MySQL", "Docker"],
-      image: "/api/placeholder/400/250",
-      liveUrl: "https://managelibrary.up.railway.app/",
-      githubUrl: "https://github.com/Sahanashre-V/Library-Management"
-    }
+  id: 3,
+  title: "Sky Sweets Symphony",
+  description: "An interactive sweets catching game with responsive design and score tracking. Built using HTML, CSS, and JavaScript for engaging gameplay across all devices.",
+  tech: ["HTML", "CSS", "JavaScript"],
+  image: "/sweets.jpeg",
+  githubUrl: "https://github.com/Sahanashre-V/Sky-Sweets-Symphony-CA-2"
+  }
   ];
 
   const skills: Skill[] = [
@@ -235,7 +233,7 @@ const Home: React.FC = () => {
               Sahanashre V
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8">
-              Full Stack Developer & UI/UX Enthusiast
+              Full Stack Developer 
             </p>
             <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
               Passionate about creating exceptional digital experiences with modern web technologies and clean, efficient code.
@@ -273,20 +271,18 @@ const Home: React.FC = () => {
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              {/* Photo placeholder with animated border */}
+              {/* Profile Photo with animated border */}
               <div className="w-80 h-80 mx-auto relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full animate-spin-slow"></div>
                 <div className="absolute inset-2 bg-gray-800 rounded-full overflow-hidden">
-                  {/* Replace this with your actual photo */}
-                  {/* <img 
-                    src="/api/placeholder/320/320" 
+                  <Image 
+                    src="/profile.jpg" // Add your profile image here
                     alt="Sahanashre V" 
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  /> */}
-                  {/* Fallback if no image */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 flex items-center justify-center">
-                    <span className="text-6xl font-bold text-white">S</span>
-                  </div>
+                    width={320}
+                    height={320}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-full"
+                    priority
+                  />
                 </div>
               </div>
             </div>
@@ -301,13 +297,12 @@ const Home: React.FC = () => {
                 seamless user experiences backed by robust, scalable architectures.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                When I am not coding, you can find me exploring new technologies, contributing to 
-                open-source projects, or sharing knowledge with the developer community.
+                When I am not coding, you can find me exploring new technologies or sharing knowledge with the developer community.
               </p>
               
               <div className="flex items-center gap-4 pt-6">
                 <Mail className="w-5 h-5 text-blue-400" />
-                <span className="text-gray-300">sahanashre@example.com</span>
+                <span className="text-gray-300">sahanashre.v@gmail.com</span>
               </div>
               <div className="flex items-center gap-4">
                 <MapPin className="w-5 h-5 text-blue-400" />
@@ -383,9 +378,22 @@ const Home: React.FC = () => {
                   animation: 'fadeInUp 0.6s ease-out forwards'
                 }}
               >
-                <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 animate-pulse"></div>
-                  <span className="text-white font-bold text-xl relative z-10">Project Image</span>
+                <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative overflow-hidden rounded-t-lg">
+                  {project.image ? (
+                    <Image 
+                      src={project.image} 
+                      alt={`${project.title} project screenshot`}
+                      width={400}
+                      height={250}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 animate-pulse"></div>
+                      <span className="text-white font-bold text-xl relative z-10">Project Image</span>
+                    </>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
@@ -398,14 +406,14 @@ const Home: React.FC = () => {
                     ))}
                   </div>
                   <div className="flex gap-4">
-                    {project.liveUrl && (
-                      <a href={project.liveUrl} className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
+                    {/* {project.liveUrl && (
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
                         <ExternalLink className="w-4 h-4" />
                         Live Demo
                       </a>
-                    )}
+                    )} */}
                     {project.githubUrl && (
-                      <a href={project.githubUrl} className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors">
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors">
                         <Github className="w-4 h-4" />
                         Code
                       </a>
@@ -459,10 +467,10 @@ const Home: React.FC = () => {
                 </div>
                 
                 <div className="flex gap-4 pt-6">
-                  <a href="https://github.com/Sahanashre-V" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
+                  <a href="https://github.com/Sahanashre-V" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
                     <Github className="w-6 h-6 text-blue-400" />
                   </a>
-                  <a href="https://www.linkedin.com/in/sahanashre-v" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
+                  <a href="https://www.linkedin.com/in/sahanashre-v" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
                     <Linkedin className="w-6 h-6 text-blue-400" />
                   </a>
                 </div>
@@ -470,7 +478,7 @@ const Home: React.FC = () => {
             </div>
             
             <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-400/50 transition-colors">
-              <div className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
                   <input
@@ -538,7 +546,7 @@ const Home: React.FC = () => {
                     </>
                   )}
                 </button>
-              </div>
+              </form>
             </div>
           </div>
         </div>
@@ -548,7 +556,7 @@ const Home: React.FC = () => {
       <footer className="bg-gray-800 border-t border-gray-700 py-8">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gray-400">
-            © 2025 Sahanashre. Built with Next.js & TypeScript.
+            © 2025 Sahanashre V. Built with Next.js & TypeScript.
           </p>
         </div>
       </footer>
