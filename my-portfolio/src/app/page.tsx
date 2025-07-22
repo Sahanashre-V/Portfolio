@@ -88,6 +88,45 @@ const Home: React.FC = () => {
     }));
   };
 
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   setSubmitStatus('');
+
+  //   // Basic validation
+  //   if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+  //     setSubmitStatus('Please fill in all fields.');
+  //     setIsSubmitting(false);
+  //     return;
+  //   }
+
+  //   // Email validation
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!emailRegex.test(formData.email)) {
+  //     setSubmitStatus('Please enter a valid email address.');
+  //     setIsSubmitting(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     // Simulate form submission (replace with actual API call)
+  //     await new Promise(resolve => setTimeout(resolve, 2000));
+      
+  //     // For demo purposes, we'll just show a success message
+  //     // In a real application, you would send this data to your backend
+  //     console.log('Form submitted:', formData);
+      
+  //     setSubmitStatus('Message sent successfully! I\'ll get back to you soon.');
+  //     setFormData({ name: '', email: '', message: '' });
+  //   } catch (error) {
+  //     setSubmitStatus(`Failed to send message. Please try again, ${error}.`);
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+
+
+  // Updated handleSubmit function for your component
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -109,17 +148,30 @@ const Home: React.FC = () => {
     }
 
     try {
-      // Simulate form submission (replace with actual API call)
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // For demo purposes, we'll just show a success message
-      // In a real application, you would send this data to your backend
-      console.log('Form submitted:', formData);
-      
-      setSubmitStatus('Message sent successfully! I\'ll get back to you soon.');
-      setFormData({ name: '', email: '', message: '' });
+      // Send email via API route
+      const response = await fetch('/api/mail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitStatus(result.message);
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus(result.message || 'Failed to send message. Please try again.');
+      }
     } catch (error) {
-      setSubmitStatus(`Failed to send message. Please try again, ${error}.`);
+      console.error('Form submission error:', error);
+      setSubmitStatus('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
