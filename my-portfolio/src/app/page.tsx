@@ -93,6 +93,7 @@ const Home: React.FC = () => {
   //   setIsSubmitting(true);
   //   setSubmitStatus('');
 
+  
   //   // Basic validation
   //   if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
   //     setSubmitStatus('Please fill in all fields.');
