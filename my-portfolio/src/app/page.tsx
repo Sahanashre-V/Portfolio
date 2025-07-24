@@ -88,45 +88,6 @@ const Home: React.FC = () => {
     }));
   };
 
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-  //   setSubmitStatus('');
-
-  
-  //   // Basic validation
-  //   if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-  //     setSubmitStatus('Please fill in all fields.');
-  //     setIsSubmitting(false);
-  //     return;
-  //   }
-
-  //   // Email validation
-  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  //   if (!emailRegex.test(formData.email)) {
-  //     setSubmitStatus('Please enter a valid email address.');
-  //     setIsSubmitting(false);
-  //     return;
-  //   }
-
-  //   try {
-  //     // Simulate form submission (replace with actual API call)
-  //     await new Promise(resolve => setTimeout(resolve, 2000));
-      
-  //     // For demo purposes, we'll just show a success message
-  //     // In a real application, you would send this data to your backend
-  //     console.log('Form submitted:', formData);
-      
-  //     setSubmitStatus('Message sent successfully! I\'ll get back to you soon.');
-  //     setFormData({ name: '', email: '', message: '' });
-  //   } catch (error) {
-  //     setSubmitStatus(`Failed to send message. Please try again, ${error}.`);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
-
   // Updated handleSubmit function for your component
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,21 +149,21 @@ const Home: React.FC = () => {
       githubUrl: "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle"
     },
     {
-      id: 2,
-      title: "CodeWhiz",
-      description: "A cross-platform mobile app built with React Native that answers coding-related questions instantly. It uses the Gemini API to deliver intelligent, real-time solutions for queries across various programming languages.",
-      tech: ["React Native", "Gemini API", "JavaScript", "Mobile Development"],
-      image: "/codewhiz.jpg",
-      githubUrl: "https://github.com/Sahanashre-V/CodeWhiz"
-    },
-    {
-  id: 3,
+  id: 2,
   title: "Sky Sweets Symphony",
   description: "An interactive sweets catching game with responsive design and score tracking. Built using HTML, CSS, and JavaScript for engaging gameplay across all devices.",
   tech: ["HTML", "CSS", "JavaScript"],
   image: "/sweets.jpeg",
   githubUrl: "https://github.com/Sahanashre-V/Sky-Sweets-Symphony-CA-2"
-  }
+  },
+  {
+      id: 3,
+      title: "BagItNow",
+      description: "This is a full-stack e-commerce application built with React.js on the frontend and Flask on the backend. It allows users to browse products, view product details in a modal, add products to their cart, scan barcodes using QuaggaJS.",
+      tech: ["React.js", "Flask", "Python", "Tailwind CSS", "QuaggaJS", "MongoDB"],
+      image: "/bagitnow.png",
+      githubUrl: "https://github.com/Sahanashre-V/BagItNow"
+    }
   ];
 
   const skills: Skill[] = [
@@ -244,7 +205,7 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen">
+    <div className="bg-gray-900 text-white min-h-screen font-inter">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -459,12 +420,6 @@ const Home: React.FC = () => {
                     ))}
                   </div>
                   <div className="flex gap-4">
-                    {/* {project.liveUrl && (
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
-                        <ExternalLink className="w-4 h-4" />
-                        Live Demo
-                      </a>
-                    )} */}
                     {project.githubUrl && (
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors">
                         <Github className="w-4 h-4" />
@@ -615,6 +570,12 @@ const Home: React.FC = () => {
       </footer>
 
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        
+        .font-inter {
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        }
+        
         @keyframes fadeInUp {
           from {
             opacity: 0;

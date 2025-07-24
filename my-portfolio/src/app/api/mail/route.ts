@@ -81,57 +81,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email content
+    // Simple email content - plain text format
     const mailOptions: nodemailer.SendMailOptions = {
       from: emailUser,
       to: emailUser, // Send to yourself
       subject: `New Contact Form Message from ${name}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9;">
-          <div style="background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-            <h2 style="color: #333; border-bottom: 3px solid #4f46e5; padding-bottom: 10px; margin-bottom: 20px;">
-              New Contact Form Submission
-            </h2>
-            
-            <div style="margin-bottom: 20px;">
-              <h3 style="color: #4f46e5; margin-bottom: 10px;">Contact Information:</h3>
-              <p style="margin: 5px 0; color: #666;">
-                <strong style="color: #333;">Name:</strong> ${name}
-              </p>
-              <p style="margin: 5px 0; color: #666;">
-                <strong style="color: #333;">Email:</strong> 
-                <a href="mailto:${email}" style="color: #4f46e5; text-decoration: none;">${email}</a>
-              </p>
-            </div>
-            
-            <div style="margin-bottom: 20px;">
-              <h3 style="color: #4f46e5; margin-bottom: 10px;">Message:</h3>
-              <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; border-left: 4px solid #4f46e5;">
-                <p style="margin: 0; color: #333; line-height: 1.6;">
-                  ${message.replace(/\n/g, '<br>')}
-                </p>
-              </div>
-            </div>
-            
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-              <p style="margin: 0; color: #888; font-size: 12px;">
-                This message was sent from your portfolio contact form at ${new Date().toLocaleString()}
-              </p>
-            </div>
-          </div>
-        </div>
-      `,
-      text: `
-        New Contact Form Submission
-        
-        Name: ${name}
-        Email: ${email}
-        
-        Message:
-        ${message}
-        
-        Sent at: ${new Date().toLocaleString()}
-      `,
+      text: `New Contact Form Submission
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+
+---
+Sent at: ${new Date().toLocaleString()}`,
       replyTo: email, // Allow replying directly to the sender
     };
 
