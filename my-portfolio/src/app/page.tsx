@@ -88,7 +88,6 @@ const Home: React.FC = () => {
     }));
   };
 
-  // Updated handleSubmit function for your component
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -149,14 +148,14 @@ const Home: React.FC = () => {
       githubUrl: "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle"
     },
     {
-  id: 2,
-  title: "Sky Sweets Symphony",
-  description: "An interactive sweets catching game with responsive design and score tracking. Built using HTML, CSS, and JavaScript for engaging gameplay across all devices.",
-  tech: ["HTML", "CSS", "JavaScript"],
-  image: "/sweets.jpeg",
-  githubUrl: "https://github.com/Sahanashre-V/Sky-Sweets-Symphony-CA-2"
-  },
-  {
+      id: 2,
+      title: "Sky Sweets Symphony",
+      description: "An interactive sweets catching game with responsive design and score tracking. Built using HTML, CSS, and JavaScript for engaging gameplay across all devices.",
+      tech: ["HTML", "CSS", "JavaScript"],
+      image: "/sweets.jpeg",
+      githubUrl: "https://github.com/Sahanashre-V/Sky-Sweets-Symphony-CA-2"
+    },
+    {
       id: 3,
       title: "BagItNow",
       description: "This is a full-stack e-commerce application built with React.js on the frontend and Flask on the backend. It allows users to browse products, view product details in a modal, add products to their cart, scan barcodes using QuaggaJS.",
@@ -206,11 +205,11 @@ const Home: React.FC = () => {
 
   return (
     <div className="bg-gray-900 text-white min-h-screen font-inter">
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800">
+      {/* Navigation - Larger Font */}
+      <nav className="fixed top-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm z-50 border-b border-gray-800 text-lg">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+            <div className="font-bold text-2xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               Sahanashre V
             </div>
             <div className="hidden md:flex space-x-8">
@@ -218,7 +217,7 @@ const Home: React.FC = () => {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`capitalize hover:text-blue-400 transition-colors ${
+                  className={`capitalize hover:text-blue-400 transition-colors text-lg ${
                     activeSection === section ? 'text-blue-400' : 'text-gray-300'
                   }`}
                 >
@@ -290,7 +289,7 @@ const Home: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full animate-spin-slow"></div>
                 <div className="absolute inset-2 bg-gray-800 rounded-full overflow-hidden">
                   <Image 
-                    src="/profile.jpg" // Add your profile image here
+                    src="/profile.jpg"
                     alt="Sahanashre V" 
                     width={320}
                     height={320}
@@ -486,7 +485,7 @@ const Home: React.FC = () => {
             </div>
             
             <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-400/50 transition-colors">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <div onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
                   <input
@@ -540,6 +539,7 @@ const Home: React.FC = () => {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
+                  onClick={handleSubmit}
                   className="w-full px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 text-white transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
@@ -554,16 +554,16 @@ const Home: React.FC = () => {
                     </>
                   )}
                 </button>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 border-t border-gray-700 py-8">
+      {/* Footer - Larger Font */}
+      <footer className="bg-gray-800 border-t border-gray-700 py-8 text-xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-400">
+          <p className="text-gray-400 text-xl">
             © 2025 Sahanashre V. Built with Next.js & TypeScript.
           </p>
         </div>
