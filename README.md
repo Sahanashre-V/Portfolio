@@ -14,4 +14,3 @@ This is a fully responsive and modern portfolio website built to highlight:
 - 🛠️ Skills & Technologies
 - 📂 Projects
 - ✉️ Contact Information
-- 📄 Resume/CV (Downloadable)
