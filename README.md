@@ -15,5 +15,6 @@ This is a fully responsive and modern portfolio website built to highlight:
 - 📂 Projects
 - ✉️ Contact Information
 
-🧰 Tech Stack
+## 🧰 Tech Stack
+
 Built with Next.js and TypeScript.
