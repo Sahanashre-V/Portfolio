@@ -1,8 +1,16 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { ChevronDown, Mail, Phone, MapPin, Github, Linkedin, Send } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import {
+  ChevronDown,
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  Send,
+} from "lucide-react";
 
 interface Project {
   id: number;
@@ -27,30 +35,30 @@ interface FormData {
 }
 
 const Home: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<string>('hero');
+  const [activeSection, setActiveSection] = useState<string>("hero");
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [skillsInView, setSkillsInView] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    message: ''
+    name: "",
+    email: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitStatus, setSubmitStatus] = useState<string>('');
+  const [submitStatus, setSubmitStatus] = useState<string>("");
 
   useEffect(() => {
     setIsVisible(true);
-    
+
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'skills', 'projects', 'contact'];
+      const sections = ["hero", "about", "skills", "projects", "contact"];
       const scrollPosition = window.scrollY + 100;
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const offsetTop = element.offsetTop;
           const offsetBottom = offsetTop + element.offsetHeight;
-          
+
           if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
             setActiveSection(section);
             break;
@@ -59,7 +67,7 @@ const Home: React.FC = () => {
       }
 
       // Check if skills section is in view
-      const skillsSection = document.getElementById('skills');
+      const skillsSection = document.getElementById("skills");
       if (skillsSection) {
         const rect = skillsSection.getBoundingClientRect();
         const isInView = rect.top < window.innerHeight && rect.bottom > 0;
@@ -69,33 +77,39 @@ const Home: React.FC = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [skillsInView]);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('');
+    setSubmitStatus("");
 
     // Basic validation
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setSubmitStatus('Please fill in all fields.');
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.message.trim()
+    ) {
+      setSubmitStatus("Please fill in all fields.");
       setIsSubmitting(false);
       return;
     }
@@ -103,17 +117,17 @@ const Home: React.FC = () => {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setSubmitStatus('Please enter a valid email address.');
+      setSubmitStatus("Please enter a valid email address.");
       setIsSubmitting(false);
       return;
     }
 
     try {
       // Send email via API route
-      const response = await fetch('/api/mail', {
-        method: 'POST',
+      const response = await fetch("/api/mail", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: formData.name,
@@ -126,13 +140,17 @@ const Home: React.FC = () => {
 
       if (response.ok && result.success) {
         setSubmitStatus(result.message);
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: "", email: "", message: "" });
       } else {
-        setSubmitStatus(result.message || 'Failed to send message. Please try again.');
+        setSubmitStatus(
+          result.message || "Failed to send message. Please try again."
+        );
       }
     } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('Network error. Please check your connection and try again.');
+      console.error("Form submission error:", error);
+      setSubmitStatus(
+        "Network error. Please check your connection and try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -142,27 +160,63 @@ const Home: React.FC = () => {
     {
       id: 1,
       title: "TechNestle",
-      description: "A dynamic platform where users can both learn and teach web development. Whether you're a novice or a seasoned professional, there's something for everyone.",
+      description:
+        "A dynamic platform where users can both learn and teach web development. Whether you're a novice or a seasoned professional, there's something for everyone.",
       tech: ["React", "Node.js", "MongoDB", "Express.js"],
       image: "/technestle.jpeg",
-      githubUrl: "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle"
+      githubUrl:
+        "https://github.com/kalviumcommunity/S60_Sahanashre_Capstone_TechNestle",
     },
     {
       id: 2,
-      title: "Sky Sweets Symphony",
-      description: "An interactive sweets catching game with responsive design and score tracking. Built using HTML, CSS, and JavaScript for engaging gameplay across all devices.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      image: "/sweets.jpeg",
-      githubUrl: "https://github.com/Sahanashre-V/Sky-Sweets-Symphony-CA-2"
+      title: "WealthWise",
+      description:
+        "An AI-powered personal finance tracker that helps users manage, categorize, and visualize their daily transactions with ease. Designed to simplify financial planning and promote smarter spending habits through real-time insights.",
+      tech: ["React", "Tailwind CSS", "Google OAuth", "Gemini API"],
+      image: "/wealthwise.png",
+      githubUrl: "https://github.com/Sahanashre-V/WealthWise",
     },
     {
       id: 3,
+      title: "Documents Manager",
+      description:
+        "Platform for managing and organizing regulatory documents efficiently. It allows users to view, add, and maintain records in a structured and secure manner, streamlining document workflows and ensuring easy accessibility for compliance and auditing purposes.",
+      tech: [
+        "Next.js",
+        "TypeScript",
+        "Material UI",
+        "PostgreSQL",
+        "Prisma ORM",
+        "Docker",
+      ],
+      image: "/document.png",
+      githubUrl: "https://github.com/Sahanashre-V/DocumentsManager",
+    },
+    {
+      id: 4,
+      title: "Sky Sweets Symphony",
+      description:
+        "An interactive sweets catching game with responsive design and score tracking. Built using HTML, CSS, and JavaScript for engaging gameplay across all devices.",
+      tech: ["HTML", "CSS", "JavaScript"],
+      image: "/sweets.jpeg",
+      githubUrl: "https://github.com/Sahanashre-V/Sky-Sweets-Symphony-CA-2",
+    },
+    {
+      id: 5,
       title: "BagItNow",
-      description: "This is a full-stack e-commerce application built with React.js on the frontend and Flask on the backend. It allows users to browse products, view product details in a modal, add products to their cart, scan barcodes using QuaggaJS.",
-      tech: ["React.js", "Flask", "Python", "Tailwind CSS", "QuaggaJS", "MongoDB"],
+      description:
+        "This is a full-stack e-commerce application built with React.js on the frontend and Flask on the backend. It allows users to browse products, view product details in a modal, add products to their cart, scan barcodes using QuaggaJS.",
+      tech: [
+        "React.js",
+        "Flask",
+        "Python",
+        "Tailwind CSS",
+        "QuaggaJS",
+        "MongoDB",
+      ],
       image: "/bagitnow.png",
-      githubUrl: "https://github.com/Sahanashre-V/BagItNow"
-    }
+      githubUrl: "https://github.com/Sahanashre-V/BagItNow",
+    },
   ];
 
   const skills: Skill[] = [
@@ -173,34 +227,34 @@ const Home: React.FC = () => {
     { name: "React Native", level: 85, icon: "📱" },
     { name: "Tailwind CSS", level: 90, icon: "🎯" },
     { name: "Figma", level: 90, icon: "🎨" },
-    
+
     // Backend Technologies - Intermediate
     { name: "Express.js", level: 95, icon: "🚀" },
     { name: "Node.js", level: 90, icon: "🟢" },
     { name: "Mongoose", level: 90, icon: "🍃" },
     { name: "JWT", level: 85, icon: "🔐" },
     { name: "Prisma ORM", level: 80, icon: "🔷" },
-    
+
     // Programming Languages - Intermediate
     { name: "Python", level: 90, icon: "🐍" },
     { name: "C++", level: 80, icon: "⚙️" },
     { name: "JavaScript", level: 80, icon: "🟨" },
-    
+
     // Databases - Intermediate
     { name: "MongoDB", level: 85, icon: "🍃" },
     { name: "MySQL", level: 80, icon: "🐬" },
     { name: "PostgreSQL", level: 80, icon: "🐘" },
-    
+
     // DevOps - Intermediate
     { name: "Docker", level: 80, icon: "🐳" },
-    
+
     // Other Tools - Intermediate
     { name: "Netlify", level: 80, icon: "🌐" },
     { name: "Render", level: 85, icon: "🚀" },
     { name: "Postman", level: 95, icon: "📬" },
     { name: "Bruno", level: 95, icon: "🐻" },
     { name: "Cloudinary", level: 85, icon: "☁️" },
-    { name: "Firebase", level: 85, icon: "🔥" }
+    { name: "Firebase", level: 85, icon: "🔥" },
   ];
 
   return (
@@ -213,26 +267,33 @@ const Home: React.FC = () => {
               Sahanashre V
             </div>
             <div className="hidden md:flex space-x-8">
-              {['hero', 'about', 'skills', 'projects', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize hover:text-blue-400 transition-colors text-lg cursor-pointer ${
-                    activeSection === section ? 'text-blue-400' : 'text-gray-300'
-                  }`}
-                >
-                  {section === 'hero' ? 'home' : section}
-                </button>
-              ))}
+              {["hero", "about", "skills", "projects", "contact"].map(
+                (section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={`capitalize hover:text-blue-400 transition-colors text-lg cursor-pointer ${
+                      activeSection === section
+                        ? "text-blue-400"
+                        : "text-gray-300"
+                    }`}
+                  >
+                    {section === "hero" ? "home" : section}
+                  </button>
+                )
+              )}
             </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      <section
+        id="hero"
+        className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
-        
+
         {/* Animated background elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -241,25 +302,32 @@ const Home: React.FC = () => {
         </div>
 
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-          <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div
+            className={`transition-all duration-1000 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-pulse">
               Sahanashre V
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 mb-8">
-              Full Stack Developer 
+              Full Stack Developer
             </p>
             <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
-              Passionate about creating exceptional digital experiences with modern web technologies and clean, efficient code.
+              Passionate about creating exceptional digital experiences with
+              modern web technologies and clean, efficient code.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
-                onClick={() => scrollToSection('projects')}
+                onClick={() => scrollToSection("projects")}
                 className="px-8 cursor-pointer py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25"
               >
                 View My Work
               </button>
               <button
-                onClick={() => scrollToSection('contact')}
+                onClick={() => scrollToSection("contact")}
                 className="px-8 cursor-pointer py-3 border-2 border-blue-400 text-blue-400 rounded-lg font-semibold hover:bg-blue-400 hover:text-white transition-all duration-300 transform hover:scale-105"
               >
                 Get In Touch
@@ -267,9 +335,9 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-        <div 
+        <div
           className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer hover:text-blue-400 transition-colors duration-300"
-          onClick={() => scrollToSection('about')}
+          onClick={() => scrollToSection("about")}
         >
           <ChevronDown className="w-8 h-8 text-gray-400 hover:text-blue-400 transition-colors duration-300" />
         </div>
@@ -284,16 +352,16 @@ const Home: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
               {/* Profile Photo with animated border */}
               <div className="w-80 h-80 mx-auto relative group">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 rounded-full animate-spin-slow"></div>
                 <div className="absolute inset-2 bg-gray-800 rounded-full overflow-hidden">
-                  <Image 
+                  <Image
                     src="/profile.jpg"
-                    alt="Sahanashre V" 
+                    alt="Sahanashre V"
                     width={320}
                     height={320}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-full"
@@ -302,20 +370,23 @@ const Home: React.FC = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="space-y-6">
               <p className="text-lg text-gray-300 leading-relaxed">
-                I am a passionate full-stack developer with expertise in modern web technologies. 
-                I love turning complex problems into simple, beautiful, and intuitive solutions.
+                I am a passionate full-stack developer with expertise in modern
+                web technologies. I love turning complex problems into simple,
+                beautiful, and intuitive solutions.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                With a strong foundation in both frontend and backend development, I create 
-                seamless user experiences backed by robust, scalable architectures.
+                With a strong foundation in both frontend and backend
+                development, I create seamless user experiences backed by
+                robust, scalable architectures.
               </p>
               <p className="text-lg text-gray-300 leading-relaxed">
-                When I am not coding, you can find me exploring new technologies or sharing knowledge with the developer community.
+                When I am not coding, you can find me exploring new technologies
+                or sharing knowledge with the developer community.
               </p>
-              
+
               <div className="flex items-center gap-4 pt-6">
                 <Mail className="w-5 h-5 text-blue-400" />
                 <span className="text-gray-300">sahanashre.v@gmail.com</span>
@@ -338,31 +409,35 @@ const Home: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {skills.map((skill, index) => (
-              <div 
-                key={skill.name} 
+              <div
+                key={skill.name}
                 className={`space-y-2 transform transition-all duration-700 ${
-                  skillsInView 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-10'
+                  skillsInView
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-10"
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{skill.icon}</span>
-                    <span className="text-lg font-semibold text-gray-300">{skill.name}</span>
+                    <span className="text-lg font-semibold text-gray-300">
+                      {skill.name}
+                    </span>
                   </div>
-                  <span className="text-blue-400 font-bold">{skill.level}%</span>
+                  <span className="text-blue-400 font-bold">
+                    {skill.level}%
+                  </span>
                 </div>
                 <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-                  <div 
+                  <div
                     className="bg-gradient-to-r from-blue-400 to-purple-500 h-3 rounded-full transition-all duration-1000 ease-out relative"
-                    style={{ 
-                      width: skillsInView ? `${skill.level}%` : '0%',
-                      transitionDelay: `${index * 100 + 200}ms`
+                    style={{
+                      width: skillsInView ? `${skill.level}%` : "0%",
+                      transitionDelay: `${index * 100 + 200}ms`,
                     }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse"></div>
@@ -383,21 +458,21 @@ const Home: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div 
-                key={project.id} 
+              <div
+                key={project.id}
                 className="bg-gray-900 rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-gray-700 hover:border-blue-400/50 hover:shadow-lg hover:shadow-blue-500/10"
-                style={{ 
+                style={{
                   animationDelay: `${index * 200}ms`,
-                  animation: 'fadeInUp 0.6s ease-out forwards'
+                  animation: "fadeInUp 0.6s ease-out forwards",
                 }}
               >
                 <div className="h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center relative overflow-hidden rounded-t-lg">
                   {project.image ? (
-                    <Image 
-                      src={project.image} 
+                    <Image
+                      src={project.image}
                       alt={`${project.title} project screenshot`}
                       width={400}
                       height={250}
@@ -407,23 +482,35 @@ const Home: React.FC = () => {
                   ) : (
                     <>
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 animate-pulse"></div>
-                      <span className="text-white font-bold text-xl relative z-10">Project Image</span>
+                      <span className="text-white font-bold text-xl relative z-10">
+                        Project Image
+                      </span>
                     </>
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
+                  <h3 className="text-xl font-bold mb-2 text-white">
+                    {project.title}
+                  </h3>
                   <p className="text-gray-400 mb-4">{project.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech) => (
-                      <span key={tech} className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm hover:bg-blue-500/30 transition-colors">
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm hover:bg-blue-500/30 transition-colors"
+                      >
                         {tech}
                       </span>
                     ))}
                   </div>
                   <div className="flex gap-4">
                     {project.githubUrl && (
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors">
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-gray-400 hover:text-gray-300 transition-colors"
+                      >
                         <Github className="w-4 h-4" />
                         Code
                       </a>
@@ -445,16 +532,18 @@ const Home: React.FC = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-white">Let us work together</h3>
+              <h3 className="text-2xl font-bold mb-6 text-white">
+                Let us work together
+              </h3>
               <p className="text-gray-400 mb-8">
-                I am always interested in hearing about new projects and opportunities. 
-                Whether you have a project in mind or just want to chat about technology, 
-                feel free to reach out!
+                I am always interested in hearing about new projects and
+                opportunities. Whether you have a project in mind or just want
+                to chat about technology, feel free to reach out!
               </p>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-4 group">
                   <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
@@ -465,7 +554,7 @@ const Home: React.FC = () => {
                     <p className="text-gray-400">sahanashre.v@gmail.com</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-4 group">
                   <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
                     <Phone className="w-6 h-6 text-blue-400" />
@@ -475,22 +564,34 @@ const Home: React.FC = () => {
                     <p className="text-gray-400">+91 96263 31196</p>
                   </div>
                 </div>
-                
+
                 <div className="flex gap-4 pt-6">
-                  <a href="https://github.com/Sahanashre-V" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
+                  <a
+                    href="https://github.com/Sahanashre-V"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110"
+                  >
                     <Github className="w-6 h-6 text-blue-400" />
                   </a>
-                  <a href="https://www.linkedin.com/in/sahanashre-v" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110">
+                  <a
+                    href="https://www.linkedin.com/in/sahanashre-v"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110"
+                  >
                     <Linkedin className="w-6 h-6 text-blue-400" />
                   </a>
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-gray-800 rounded-lg p-8 border border-gray-700 hover:border-blue-400/50 transition-colors">
               <div onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
+                  <label htmlFor="name" className="block text-gray-300 mb-2">
+                    Name
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -503,7 +604,9 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-gray-300 mb-2">Email</label>
+                  <label htmlFor="email" className="block text-gray-300 mb-2">
+                    Email
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -516,7 +619,9 @@ const Home: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-gray-300 mb-2">Message</label>
+                  <label htmlFor="message" className="block text-gray-300 mb-2">
+                    Message
+                  </label>
                   <textarea
                     id="message"
                     name="message"
@@ -528,18 +633,20 @@ const Home: React.FC = () => {
                     required
                   />
                 </div>
-                
+
                 {submitStatus && (
-                  <div className={`p-4 rounded-lg ${
-                    submitStatus.includes('successfully') 
-                      ? 'bg-green-500/20 text-green-400 border border-green-500/50' 
-                      : 'bg-red-500/20 text-red-400 border border-red-500/50'
-                  }`}>
+                  <div
+                    className={`p-4 rounded-lg ${
+                      submitStatus.includes("successfully")
+                        ? "bg-green-500/20 text-green-400 border border-green-500/50"
+                        : "bg-red-500/20 text-red-400 border border-red-500/50"
+                    }`}
+                  >
                     {submitStatus}
                   </div>
                 )}
-                
-                <button 
+
+                <button
                   type="submit"
                   disabled={isSubmitting}
                   onClick={handleSubmit}
@@ -573,12 +680,14 @@ const Home: React.FC = () => {
       </footer>
 
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-        
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
         .font-inter {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+          font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+            "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+            "Helvetica Neue", sans-serif;
         }
-        
+
         @keyframes fadeInUp {
           from {
             opacity: 0;
@@ -589,7 +698,7 @@ const Home: React.FC = () => {
             transform: translateY(0);
           }
         }
-        
+
         @keyframes spin-slow {
           from {
             transform: rotate(0deg);
@@ -598,7 +707,7 @@ const Home: React.FC = () => {
             transform: rotate(360deg);
           }
         }
-        
+
         .animate-spin-slow {
           animation: spin-slow 3s linear infinite;
         }
