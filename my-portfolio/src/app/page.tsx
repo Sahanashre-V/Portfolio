@@ -10,6 +10,7 @@ import {
   Github,
   Linkedin,
   Send,
+  Code2,
 } from "lucide-react";
 
 interface Project {
@@ -581,6 +582,14 @@ const Home: React.FC = () => {
                     className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110"
                   >
                     <Linkedin className="w-6 h-6 text-blue-400" />
+                  </a>
+                  <a
+                    href="https://leetcode.com/u/sahanashre-v"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/30 transition-all duration-300 transform hover:scale-110"
+                  >
+                    <Code2 className="w-6 h-6 text-blue-400" />
                   </a>
                 </div>
               </div>
