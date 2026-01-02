@@ -225,6 +225,7 @@ const Home: React.FC = () => {
     { name: "HTML", level: 95, icon: "🌐" },
     { name: "CSS", level: 90, icon: "🎨" },
     { name: "React.js", level: 95, icon: "⚛️" },
+    { name: "Next.js", level: 90, icon: "▲" },
     { name: "React Native", level: 85, icon: "📱" },
     { name: "Tailwind CSS", level: 90, icon: "🎯" },
     { name: "Figma", level: 90, icon: "🎨" },
@@ -240,11 +241,16 @@ const Home: React.FC = () => {
     { name: "Python", level: 90, icon: "🐍" },
     { name: "C++", level: 80, icon: "⚙️" },
     { name: "JavaScript", level: 80, icon: "🟨" },
+    { name: "TypeScript", level: 85, icon: "📘" },
 
     // Databases - Intermediate
     { name: "MongoDB", level: 85, icon: "🍃" },
     { name: "MySQL", level: 80, icon: "🐬" },
     { name: "PostgreSQL", level: 80, icon: "🐘" },
+
+    // Testing - Intermediate
+    { name: "Jest", level: 85, icon: "🧪" },
+    { name: "Supertest", level: 80, icon: "🧬" },
 
     // DevOps - Intermediate
     { name: "Docker", level: 80, icon: "🐳" },
@@ -411,41 +417,120 @@ const Home: React.FC = () => {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {skills.map((skill, index) => (
-              <div
-                key={skill.name}
-                className={`space-y-2 transform transition-all duration-700 ${
-                  skillsInView
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{skill.icon}</span>
-                    <span className="text-lg font-semibold text-gray-300">
-                      {skill.name}
-                    </span>
+          <div className="space-y-8">
+            {/* Frontend Section */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 px-8 py-4 flex items-center gap-4">
+                <span className="text-4xl">🌐</span>
+                <h3 className="text-2xl font-bold text-gray-400">Frontend</h3>
+              </div>
+              <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+              <div className="p-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {skills.slice(0, 7).map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 cursor-pointer group">
+                    <span className="text-3xl group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">{skill.name}</span>
                   </div>
-                  <span className="text-blue-400 font-bold">
-                    {skill.level}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-                  <div
-                    className="bg-gradient-to-r from-blue-400 to-purple-500 h-3 rounded-full transition-all duration-1000 ease-out relative"
-                    style={{
-                      width: skillsInView ? `${skill.level}%` : "0%",
-                      transitionDelay: `${index * 100 + 200}ms`,
-                    }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 animate-pulse"></div>
-                  </div>
+                ))}
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Backend Section */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 px-8 py-4 flex items-center gap-4">
+                <span className="text-4xl">⚙️</span>
+                <h3 className="text-2xl font-bold text-gray-400">Backend</h3>
+              </div>
+              <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+              <div className="p-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {skills.slice(7, 12).map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 cursor-pointer group">
+                    <span className="text-3xl group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">{skill.name}</span>
+                  </div>
+                ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Languages Section */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 px-8 py-4 flex items-center gap-4">
+                <span className="text-4xl">💻</span>
+                <h3 className="text-2xl font-bold text-gray-400">Languages</h3>
+              </div>
+              <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+              <div className="p-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {skills.slice(12, 16).map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 cursor-pointer group">
+                    <span className="text-3xl group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">{skill.name}</span>
+                  </div>
+                ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Databases Section */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 px-8 py-4 flex items-center gap-4">
+                <span className="text-4xl">🗄️</span>
+                <h3 className="text-2xl font-bold text-gray-400">Databases</h3>
+              </div>
+              <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+              <div className="p-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {skills.slice(16, 19).map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 cursor-pointer group">
+                    <span className="text-3xl group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">{skill.name}</span>
+                  </div>
+                ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Testing Section */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 px-8 py-4 flex items-center gap-4">
+                <span className="text-4xl">🧪</span>
+                <h3 className="text-2xl font-bold text-gray-400">Testing</h3>
+              </div>
+              <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+              <div className="p-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {skills.slice(19, 21).map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 cursor-pointer group">
+                    <span className="text-3xl group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">{skill.name}</span>
+                  </div>
+                ))}
+                </div>
+              </div>
+            </div>
+
+            {/* DevOps & Tools Section */}
+            <div className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden">
+              <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 px-8 py-4 flex items-center gap-4">
+                <span className="text-4xl">🛠️</span>
+                <h3 className="text-2xl font-bold text-gray-400">DevOps & Tools</h3>
+              </div>
+              <div className="h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+              <div className="p-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {skills.slice(21).map((skill) => (
+                  <div key={skill.name} className="flex items-center gap-3 cursor-pointer group">
+                    <span className="text-3xl group-hover:scale-125 transition-transform duration-300">{skill.icon}</span>
+                    <span className="text-gray-400 group-hover:text-gray-200 transition-colors font-medium">{skill.name}</span>
+                  </div>
+                ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
